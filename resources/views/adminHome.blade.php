@@ -19,6 +19,11 @@
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body">
+                    @if(Session::get('success'))
+                    <div class="alert alert-success">
+                        {{ Session::get('success')}}
+                    </div>
+                    @endif
 					<div class="table-responsive">
 					  <table id="example1" class="table table-bordered table-striped">
 						<thead>
@@ -36,7 +41,10 @@
 								<td>{{$user->name}}</td>
 								<td>{{$user->email}}</td>
 								<td>
-									<a href="" class="btn btn-info">Approve</a>
+									<form action="{{ route('admin.activate-user', ['user' => $user->id])}}" method="post">
+                                        @csrf
+                                        <button class="btn btn-info" type="submit">Approve</button>
+                                    </form>
 								</td>
 							</tr>
 							@endforeach

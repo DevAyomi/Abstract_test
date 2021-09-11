@@ -52,7 +52,13 @@ class LoginController extends Controller
             if (auth()->user()->is_admin == 1) {
                 return redirect()->route('adminHome');
             }else{
-                return redirect()->route('home');
+                if(auth()->user()->is_active == 1){
+                    return redirect('home');
+                }else{
+                    auth()->logout();
+                    return redirect()->route('login')
+                    ->with('fail','Your account has not yet been activated, you will be notifiled when your account get activated.');
+                }
             }
         }else{
             return redirect()->route('login')
