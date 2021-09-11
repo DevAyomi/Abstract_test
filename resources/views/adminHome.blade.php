@@ -31,6 +31,7 @@
 								<th width="5%">S/N</th>
 								<th>Name</th>
 								<th>Email</th>
+                                <th>Status</th>
 								<th width="25%">Action</th>
 							</tr>
 						</thead>
@@ -40,12 +41,27 @@
 								<td>{{$key+1}}</td>
 								<td>{{$user->name}}</td>
 								<td>{{$user->email}}</td>
-								<td>
+                                @if($user->is_active == 1)
+                                    <td class="text-success">Approved</td>
+                                @elseif($user->is_active == 0)
+                                    <td class="text-danger">Not Approved</td>
+                                @endif
+
+								@if($user->is_active == 0)
+                                <td>
 									<form action="{{ route('admin.activate-user', ['user' => $user->id])}}" method="post">
                                         @csrf
-                                        <button class="btn btn-info" type="submit">Approve</button>
+                                        <button class="btn btn-success" type="submit">Approve</button>
                                     </form>
 								</td>
+                                @else
+                                <td>
+									<form action="{{ route('admin.deactivate-user', ['user' => $user->id])}}" method="post">
+                                        @csrf
+                                        <button class="btn btn-danger" type="submit">Disapprove</button>
+                                    </form>
+								</td>
+                                @endif
 							</tr>
 							@endforeach
 

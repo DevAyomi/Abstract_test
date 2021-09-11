@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActivatorController;
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -24,5 +25,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('admin/home', [HomeController::class, 'adminHome'])->name('adminHome')->middleware('is_admin');
-Route::post('admin/activate-user/{user}', [HomeController::class, 'activateUser'])->name('admin.activate-user');
+Route::post('admin/activate-user/{user}', [ActivatorController::class, 'activateUser'])->name('admin.activate-user');
+Route::post('admin/deactivate-user/{user}', [ActivatorController::class, 'deactivateUser'])->name('admin.deactivate-user');
+
+
 
