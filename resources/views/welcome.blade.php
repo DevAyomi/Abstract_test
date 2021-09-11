@@ -25,7 +25,17 @@
                      @if (Route::has('login'))
                         <div class="navbar-nav ml-auto">
                             @auth
-                                <a href="{{ url('/dashboard') }}" class="nav-link">Dashboard</a>
+                            <li>
+                                <a href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                                            <i data-feather="lock"></i>
+                                 {{ __('Log out') }}
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </li>
                             @else
                                 <a href="{{ route('login') }}" class="nav-link">Log in</a>
 

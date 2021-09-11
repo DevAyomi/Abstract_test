@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class HomeController extends Controller
 {
@@ -26,6 +27,7 @@ class HomeController extends Controller
         return view('home');
     }
 
+
     /**
      * Show the application dashboard.
      *
@@ -33,7 +35,8 @@ class HomeController extends Controller
      */
     public function adminHome()
     {
-        return view('adminHome');
+        $data['allData'] = User::all();
+        return view('adminHome',$data);
     }
 
 }
